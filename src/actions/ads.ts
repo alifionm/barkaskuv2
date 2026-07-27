@@ -93,9 +93,10 @@ export async function createAd(formData: FormData) {
     if (insertError) {
       return { error: insertError.message }
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error inside createAd:", error)
-    return { error: error.message || 'Terjadi kesalahan sistem saat memproses permintaan.' }
+    const errorMessage = error instanceof Error ? error.message : 'Terjadi kesalahan sistem saat memproses permintaan.'
+    return { error: errorMessage }
   }
 
   // Redirect outside of try-catch so NEXT_REDIRECT error doesn't get caught
@@ -111,8 +112,9 @@ export async function deleteAd(id: string) {
     if (error) {
       return { error: error.message }
     }
-  } catch (error: any) {
-    return { error: error.message || 'Gagal menghapus iklan.' }
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Gagal menghapus iklan.'
+    return { error: errorMessage }
   }
 
   revalidatePath('/dashboard/ads')
