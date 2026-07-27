@@ -32,7 +32,8 @@ export default async function AdminAdsPage() {
               </tr>
             </thead>
             <tbody>
-              {ads?.map((ad) => (
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              {ads?.map((ad: any) => (
                 <tr key={ad.id} className="border-b hover:bg-gray-50">
                   <td className="px-6 py-4 font-medium text-gray-900">
                     <Link href={`/ads/${ad.slug}`} target="_blank" className="hover:underline text-navy">
