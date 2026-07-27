@@ -44,6 +44,7 @@ export async function createAd(formData: FormData) {
     // Auto-convert image to WebP format for optimization
     const arrayBuffer = await file.arrayBuffer()
     const imageBuffer = Buffer.from(arrayBuffer)
+
     const sharp = (await import('sharp')).default
     const webpBuffer = await sharp(imageBuffer)
       .webp({ quality: 80 })
