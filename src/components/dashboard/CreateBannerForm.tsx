@@ -22,8 +22,8 @@ export default function CreateBannerForm() {
         toast.success('Berhasil', { description: 'Banner berhasil diunggah' })
         // Optional: clear form or handled by redirect
       }
-    } catch (error: any) {
-      toast.error('Error', { description: error.message || 'Terjadi kesalahan' })
+    } catch (error: unknown) {
+      toast.error('Error', { description: (error as Error).message || 'Terjadi kesalahan' })
       setIsLoading(false)
     }
   }

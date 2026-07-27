@@ -82,7 +82,7 @@ export async function createBanner(formData: FormData) {
       }
     }
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error processing banner:', error)
     return { error: 'Terjadi kesalahan saat memproses gambar.' }
   }
