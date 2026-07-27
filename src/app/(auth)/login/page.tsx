@@ -18,8 +18,8 @@ export default function LoginPage() {
       if (result?.error) {
         toast.error('Login Gagal', { description: result.error })
       }
-    } catch (error: any) {
-      toast.error('Terjadi Kesalahan', { description: error.message })
+    } catch (error: unknown) {
+      toast.error('Terjadi Kesalahan', { description: (error as Error).message })
     } finally {
       setIsLoading(false)
     }

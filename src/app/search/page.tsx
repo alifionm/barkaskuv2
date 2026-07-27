@@ -146,6 +146,7 @@ export default async function SearchPage(props: Props) {
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {ads && ads.length > 0 ? (
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 ads.map((ad: any) => (
                   <Link
                     key={ad.id}

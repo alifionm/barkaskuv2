@@ -25,8 +25,8 @@ export default function ActionButton({ action, icon, title, className, disabled,
       } else if (result?.success) {
         toast.success('Berhasil', { description: result.success })
       }
-    } catch (e: any) {
-      toast.error('Error', { description: e.message })
+    } catch (e: unknown) {
+      toast.error('Error', { description: (e as Error).message })
     } finally {
       setIsLoading(false)
     }

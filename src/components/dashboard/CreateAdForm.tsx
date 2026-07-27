@@ -24,8 +24,8 @@ export default function CreateAdForm({ categories }: { categories: Category[] })
         toast.error('Gagal', { description: result.error })
         setIsLoading(false)
       }
-    } catch (error: any) {
-      toast.error('Error', { description: error.message || 'Terjadi kesalahan' })
+    } catch (error: unknown) {
+      toast.error('Error', { description: (error as Error).message || 'Terjadi kesalahan' })
       setIsLoading(false)
     }
   }

@@ -130,6 +130,7 @@ export default async function Home() {
             
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {recentAds && recentAds.length > 0 ? (
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 recentAds.map((ad: any) => (
                   <Link
                     key={ad.id}

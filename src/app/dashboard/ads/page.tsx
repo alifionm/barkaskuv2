@@ -12,6 +12,7 @@ export default async function UserAdsPage() {
     data: { user },
   } = await supabase.auth.getUser()
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let ads: any[] = []
 
   if (user) {
