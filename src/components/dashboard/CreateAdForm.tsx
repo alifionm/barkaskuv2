@@ -16,8 +16,10 @@ export default function CreateAdForm({ categories }: { categories: Category[] })
   const [isLoading, setIsLoading] = useState(false)
   const [imageCount, setImageCount] = useState(0)
 
-  async function onSubmit(formData: FormData) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
     setIsLoading(true)
+    const formData = new FormData(e.currentTarget)
     try {
       const result = await createAd(formData)
       if (result?.error) {
@@ -31,7 +33,7 @@ export default function CreateAdForm({ categories }: { categories: Category[] })
   }
 
   return (
-    <form action={onSubmit} className="space-y-6 max-w-2xl" encType="multipart/form-data">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl" encType="multipart/form-data">
       <div>
         <Label htmlFor="title">Judul Iklan</Label>
         <Input id="title" name="title" required className="mt-1" placeholder="Misal: iPhone 13 Pro Max Mulus" />

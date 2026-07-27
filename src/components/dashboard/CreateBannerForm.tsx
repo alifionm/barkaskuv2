@@ -11,8 +11,10 @@ export default function CreateBannerForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [imageCount, setImageCount] = useState(0)
 
-  async function onSubmit(formData: FormData) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
     setIsLoading(true)
+    const formData = new FormData(e.currentTarget)
     try {
       const result = await createBanner(formData)
       if (result?.error) {
@@ -29,7 +31,7 @@ export default function CreateBannerForm() {
   }
 
   return (
-    <form action={onSubmit} className="space-y-6 max-w-xl" encType="multipart/form-data">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-xl" encType="multipart/form-data">
       <div>
         <Label htmlFor="image">Upload Banner (Otomatis WebP 550x250)</Label>
         <Input
