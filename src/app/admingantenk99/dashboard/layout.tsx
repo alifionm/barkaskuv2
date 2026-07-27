@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { logoutCms } from '@/actions/cms'
 import { Button } from '@/components/ui/button'
 import { LayoutDashboard, Users, Grid, List, LogOut, CheckSquare, Image as ImageIcon } from 'lucide-react'
+import MobileSidebar from './MobileSidebar'
 
 export const dynamic = 'force-dynamic'
 
@@ -80,10 +81,14 @@ export default function AdminLayout({
       {/* Main Content */}
       <main className="flex-1 flex flex-col">
         {/* Header */}
-        <header className="flex h-16 items-center justify-between bg-white px-6 shadow-sm">
-          <h1 className="text-xl font-semibold text-gray-800">Administrator Panel</h1>
+        <header className="flex h-16 items-center justify-between bg-white px-4 md:px-6 shadow-sm">
+          <div className="flex items-center gap-3 md:gap-0">
+            <MobileSidebar />
+            <h1 className="text-lg md:text-xl font-semibold text-gray-800">Administrator Panel</h1>
+          </div>
           <Link href="/">
-            <Button variant="outline" size="sm">Lihat Website</Button>
+            <Button variant="outline" size="sm" className="hidden md:flex">Lihat Website</Button>
+            <Button variant="outline" size="sm" className="md:hidden">Web</Button>
           </Link>
         </header>
 

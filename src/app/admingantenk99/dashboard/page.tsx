@@ -1,7 +1,7 @@
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/server'
 
 export default async function AdminDashboardPage() {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   // Fetch some stats
   const { count: totalAds } = await supabase.from('ads').select('*', { count: 'exact', head: true })

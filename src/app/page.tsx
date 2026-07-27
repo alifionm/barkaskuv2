@@ -90,7 +90,7 @@ export default async function Home() {
               </Link>
             </div>
             
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {recentAds && recentAds.length > 0 ? (
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 recentAds.map((ad: any) => (
@@ -112,11 +112,11 @@ export default async function Home() {
                         </div>
                       )}
                     </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 line-clamp-2 mb-2 group-hover:text-navy transition-colors">
+                    <div className="p-3">
+                      <h3 className="font-semibold text-sm text-gray-900 line-clamp-2 mb-1 group-hover:text-navy transition-colors">
                         {ad.title}
                       </h3>
-                      <p className="text-lg font-bold text-navy mb-2">
+                      <p className="text-base font-bold text-navy mb-2">
                         {formatPrice(ad.price)}
                       </p>
                       <p className="text-xs text-gray-500">
