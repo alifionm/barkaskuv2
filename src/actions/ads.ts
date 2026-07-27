@@ -3,7 +3,6 @@
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import sharp from 'sharp'
 
 export async function createAd(formData: FormData) {
   try {
@@ -47,6 +46,7 @@ export async function createAd(formData: FormData) {
       const arrayBuffer = await file.arrayBuffer()
       const imageBuffer = Buffer.from(arrayBuffer)
       
+      const sharp = (await import('sharp')).default
       const webpBuffer = await sharp(imageBuffer)
         .webp({ quality: 80 })
         .toBuffer()
