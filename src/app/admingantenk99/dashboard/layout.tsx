@@ -3,6 +3,8 @@ import { logoutCms } from '@/actions/cms'
 import { Button } from '@/components/ui/button'
 import { LayoutDashboard, Users, Grid, List, LogOut, CheckSquare, Image as ImageIcon } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export default function AdminLayout({
   children,
 }: {
