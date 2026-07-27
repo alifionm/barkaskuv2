@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/Footer'
 import BannerSlider from '@/components/shared/BannerSlider'
+import HeroSection from '@/components/shared/HeroSection'
 import Link from 'next/link'
 import { Eye } from 'lucide-react'
 
@@ -44,35 +45,7 @@ export default async function Home() {
       <Navbar />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section 
-          className="bg-navy py-20 text-white relative bg-cover bg-center"
-          style={{ backgroundImage: 'url(/hero_img.webp)' }}
-        >
-          <div className="absolute inset-0 bg-navy/80"></div>
-          <div className="container mx-auto px-4 text-center md:px-6 relative z-10">
-            <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              Temukan Barang Bekas Impianmu
-            </h1>
-            <p className="mx-auto max-w-2xl text-lg text-gray-300 mb-8">
-              Jual beli barang bekas berkualitas menjadi lebih mudah, cepat, dan aman di Barkasku.
-            </p>
-            <div className="flex justify-center gap-4">
-              <Link
-                href="/search"
-                className="rounded-md bg-yellow-500 px-6 py-3 font-medium text-white shadow hover:bg-yellow-600 transition-colors"
-              >
-                Cari Barang
-              </Link>
-              <Link
-                href="/dashboard/ads/create"
-                className="rounded-md bg-white px-6 py-3 font-medium text-navy shadow hover:bg-gray-100 transition-colors"
-              >
-                Pasang Iklan
-              </Link>
-            </div>
-          </div>
-        </section>
+        <HeroSection />
 
         {/* Banners Section */}
         {banners && banners.length > 0 && (
