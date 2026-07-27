@@ -2,7 +2,6 @@
 
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
-import sharp from 'sharp'
 import { redirect } from 'next/navigation'
 
 export async function createAd(formData: FormData) {
@@ -45,6 +44,8 @@ export async function createAd(formData: FormData) {
     // Auto-convert image to WebP format for optimization
     const arrayBuffer = await file.arrayBuffer()
     const imageBuffer = Buffer.from(arrayBuffer)
+    
+    const sharp = (await import('sharp')).default
     const webpBuffer = await sharp(imageBuffer)
       .webp({ quality: 80 })
       .toBuffer()
