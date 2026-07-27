@@ -22,6 +22,7 @@ export default async function AdminCategoriesPage() {
         <div className="md:col-span-1">
           <div className="bg-white rounded-xl border shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-4">Tambah Kategori</h3>
+            {/* @ts-expect-error Server Action return types mismatch in React 19 */}
             <form action={createCategory} className="space-y-4">
               <div>
                 <label htmlFor="name" className="text-sm font-medium text-gray-700">Nama Kategori</label>
