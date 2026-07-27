@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/Footer'
+import BannerSlider from '@/components/shared/BannerSlider'
 import Link from 'next/link'
 import { Eye } from 'lucide-react'
 
@@ -77,19 +78,7 @@ export default async function Home() {
         {banners && banners.length > 0 && (
           <section className="py-8 bg-gray-50 border-b">
             <div className="container mx-auto px-4 md:px-6">
-              <div className="flex gap-4 overflow-x-auto pb-4 snap-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                {banners.map((banner) => (
-                  <div key={banner.id} className="min-w-[550px] w-[550px] h-[250px] flex-shrink-0 snap-center rounded-xl overflow-hidden shadow-sm">
-                    {banner.link ? (
-                      <a href={banner.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                        <img src={banner.image_url} alt="Banner" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-                      </a>
-                    ) : (
-                      <img src={banner.image_url} alt="Banner" className="w-full h-full object-cover" />
-                    )}
-                  </div>
-                ))}
-              </div>
+              <BannerSlider banners={banners} />
             </div>
           </section>
         )}

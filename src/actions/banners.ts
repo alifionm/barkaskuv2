@@ -1,28 +1,24 @@
 'use server'
 
-import { createClient, createAdminClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import sharp from 'sharp'
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
+
+// Helper function to check if user has CMS access
+async function checkAdminAccess() {
+  const cookieStore = await cookies()
+  const hasAccess = cookieStore.get('admin_access')
+  if (!hasAccess) {
+    throw new Error('Not authorized')
+  }
+}
 
 export async function createBanner(formData: FormData) {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    return { error: 'Not authenticated' }
-  }
-
-  // Check if admin
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
-    .single()
-
-  if (profile?.role !== 'admin') {
+  try {
+    await checkAdminAccess()
+  } catch {
     return { error: 'Not authorized' }
   }
 
@@ -65,13 +61,13 @@ export async function createBanner(formData: FormData) {
     }
 
     if (data) {
-      const { data: publicUrlData } = supabase.storage
+      const { data: publicUrlData } = adminSupabase.storage
         .from('barang_images')
         .getPublicUrl(data.path)
 
       const imageUrl = publicUrlData.publicUrl
 
-      const { error: insertError } = await supabase.from('banners').insert({
+      const { error: insertError } = await adminSupabase.from('banners').insert({
         image_url: imageUrl,
         link: link || null,
         is_active: isActive
@@ -93,15 +89,15 @@ export async function createBanner(formData: FormData) {
 }
 
 export async function toggleBannerStatus(id: string, currentStatus: boolean) {
-  const supabase = await createClient()
+  try {
+    await checkAdminAccess()
+  } catch {
+    return { error: 'Not authorized' }
+  }
+
+  const adminSupabase = createAdminClient()
   
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) return { error: 'Not authenticated' }
-
-  const { error } = await supabase
+  const { error } = await adminSupabase
     .from('banners')
     .update({ is_active: !currentStatus })
     .eq('id', id)
@@ -116,15 +112,32 @@ export async function toggleBannerStatus(id: string, currentStatus: boolean) {
 }
 
 export async function deleteBanner(id: string) {
-  const supabase = await createClient()
-  
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  try {
+    await checkAdminAccess()
+  } catch {
+    return { error: 'Not authorized' }
+  }
 
-  if (!user) return { error: 'Not authenticated' }
+  const adminSupabase = createAdminClient()
 
-  const { error } = await supabase.from('banners').delete().eq('id', id)
+  // Find banner image url to delete it from storage first
+  const { data: banner } = await adminSupabase
+    .from('banners')
+    .select('image_url')
+    .eq('id', id)
+    .single()
+
+  if (banner && banner.image_url) {
+    // Extract filename from public url
+    const urlParts = banner.image_url.split('/')
+    const pathIndex = urlParts.indexOf('barang_images')
+    if (pathIndex !== -1) {
+      const fileName = urlParts.slice(pathIndex + 1).join('/')
+      await adminSupabase.storage.from('barang_images').remove([fileName])
+    }
+  }
+
+  const { error } = await adminSupabase.from('banners').delete().eq('id', id)
 
   if (error) {
     return { error: error.message }
