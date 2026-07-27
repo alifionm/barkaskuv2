@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { logoutCms } from '@/actions/cms'
 import { Button } from '@/components/ui/button'
-import { LayoutDashboard, Users, Grid, List, LogOut, CheckSquare } from 'lucide-react'
+import { LayoutDashboard, Users, Grid, List, LogOut, CheckSquare, Image as ImageIcon } from 'lucide-react'
 
 export default function AdminLayout({
   children,
@@ -24,6 +24,13 @@ export default function AdminLayout({
           >
             <LayoutDashboard size={20} />
             <span>Dashboard</span>
+          </Link>
+          <Link
+            href="/admingantenk99/dashboard/banners"
+            className="flex items-center gap-3 rounded-md px-3 py-2 hover:bg-white/10 transition-colors"
+          >
+            <ImageIcon size={20} />
+            <span>Banner Iklan</span>
           </Link>
           <Link
             href="/admingantenk99/dashboard/ads"

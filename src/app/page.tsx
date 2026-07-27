@@ -24,6 +24,12 @@ export default async function Home() {
     .order('created_at', { ascending: false })
     .limit(8)
 
+  const { data: banners } = await supabase
+    .from('banners')
+    .select('*')
+    .eq('is_active', true)
+    .order('created_at', { ascending: false })
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
@@ -38,8 +44,12 @@ export default async function Home() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-navy py-20 text-white">
-          <div className="container mx-auto px-4 text-center md:px-6">
+        <section 
+          className="bg-navy py-20 text-white relative bg-cover bg-center"
+          style={{ backgroundImage: 'url(/hero_img.webp)' }}
+        >
+          <div className="absolute inset-0 bg-navy/80"></div>
+          <div className="container mx-auto px-4 text-center md:px-6 relative z-10">
             <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
               Temukan Barang Bekas Impianmu
             </h1>
@@ -63,17 +73,38 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* Banners Section */}
+        {banners && banners.length > 0 && (
+          <section className="py-8 bg-gray-50 border-b">
+            <div className="container mx-auto px-4 md:px-6">
+              <div className="flex gap-4 overflow-x-auto pb-4 snap-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                {banners.map((banner) => (
+                  <div key={banner.id} className="min-w-[550px] w-[550px] h-[250px] flex-shrink-0 snap-center rounded-xl overflow-hidden shadow-sm">
+                    {banner.link ? (
+                      <a href={banner.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                        <img src={banner.image_url} alt="Banner" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                      </a>
+                    ) : (
+                      <img src={banner.image_url} alt="Banner" className="w-full h-full object-cover" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Categories Section */}
         <section className="py-12">
           <div className="container mx-auto px-4 md:px-6">
             <h2 className="mb-8 text-2xl font-bold text-navy">Kategori Pilihan</h2>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            <div className="flex gap-4 overflow-x-auto pb-4 snap-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {categories && categories.length > 0 ? (
                 categories.map((cat) => (
                   <Link
                     key={cat.id}
                     href={`/search?category=${cat.id}`}
-                    className="flex flex-col items-center justify-center rounded-xl border bg-white p-6 shadow-sm hover:border-navy hover:shadow-md transition-all"
+                    className="flex-shrink-0 min-w-[150px] flex flex-col items-center justify-center rounded-xl border bg-white py-3 px-6 shadow-sm hover:border-navy hover:shadow-md transition-all snap-start"
                   >
                     <span className="font-medium text-gray-700">{cat.name}</span>
                   </Link>
@@ -93,7 +124,7 @@ export default async function Home() {
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold text-navy">Iklan Terbaru</h2>
               <Link href="/search" className="text-navy hover:underline font-medium">
-                Lihat Semua &rarr;
+                Lihat Semua
               </Link>
             </div>
             
