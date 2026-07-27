@@ -28,14 +28,16 @@ export default function BannerSlider({ banners }: { banners: Banner[] }) {
   return (
     <div className="relative group">
       {/* Scroll Left Button */}
-      <Button
-        variant="secondary"
-        size="icon"
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity bg-white hover:bg-gray-100"
-        onClick={scrollLeft}
-      >
-        <ChevronLeft className="h-6 w-6 text-navy" />
-      </Button>
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+        <Button
+          variant="secondary"
+          size="icon"
+          className="rounded-full shadow-md bg-white hover:bg-gray-100"
+          onClick={scrollLeft}
+        >
+          <ChevronLeft className="h-6 w-6 text-navy" />
+        </Button>
+      </div>
 
       {/* Scrollable Container */}
       <div 
@@ -64,14 +66,16 @@ export default function BannerSlider({ banners }: { banners: Banner[] }) {
       </div>
 
       {/* Scroll Right Button */}
-      <Button
-        variant="secondary"
-        size="icon"
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity bg-white hover:bg-gray-100"
-        onClick={scrollRight}
-      >
-        <ChevronRight className="h-6 w-6 text-navy" />
-      </Button>
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+        <Button
+          variant="secondary"
+          size="icon"
+          className="rounded-full shadow-md bg-white hover:bg-gray-100"
+          onClick={scrollRight}
+        >
+          <ChevronRight className="h-6 w-6 text-navy" />
+        </Button>
+      </div>
     </div>
   )
 }
