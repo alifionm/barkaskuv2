@@ -63,6 +63,18 @@ export async function deleteFaq(id: string) {
   return { success: 'FAQ berhasil dihapus' }
 }
 
+export async function deleteAdAdmin(id: string) {
+  const supabase = createAdminClient()
+  const { error } = await supabase.from('ads').delete().eq('id', id)
+  
+  if (error) return { error: error.message }
+  
+  revalidatePath('/admingantenk99/dashboard/ads')
+  revalidatePath('/admingantenk99/dashboard')
+  revalidatePath('/')
+  return { success: 'Iklan berhasil dihapus secara permanen' }
+}
+
 export async function deleteUser(id: string) {
   const supabase = createAdminClient()
   

@@ -1,10 +1,10 @@
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/server'
 import CreateBannerForm from '@/components/dashboard/CreateBannerForm'
 import { Button } from '@/components/ui/button'
 import { toggleBannerStatus, deleteBanner } from '@/actions/banners'
 
 export default async function AdminBannersPage() {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   const { data: banners } = await supabase
     .from('banners')

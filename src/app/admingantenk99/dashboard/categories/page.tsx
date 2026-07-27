@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/server'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { createCategory, deleteCategory } from '@/actions/admin'
@@ -6,7 +6,7 @@ import { Trash2 } from 'lucide-react'
 import ActionButton from '@/components/dashboard/ActionButton'
 
 export default async function AdminCategoriesPage() {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   const { data: categories } = await supabase
     .from('categories')
