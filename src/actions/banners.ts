@@ -2,7 +2,6 @@
 
 import { createAdminClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
-import sharp from 'sharp'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 
@@ -37,6 +36,7 @@ export async function createBanner(formData: FormData) {
     const imageBuffer = Buffer.from(arrayBuffer)
     
     // Resize to 550x250 and convert to webp
+    const sharp = (await import('sharp')).default
     const webpBuffer = await sharp(imageBuffer)
       .resize({
         width: 550,
