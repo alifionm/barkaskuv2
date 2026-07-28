@@ -23,11 +23,13 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 mb-8">
           
           <div className="flex flex-col items-center md:items-start max-w-sm">
+            {/* 
             <img 
               src="/logo.png" 
               alt="Barkasku Logo" 
               className="h-16 mb-4 object-contain" 
             />
+            */}
             <p className="text-gray-300 text-sm text-center md:text-left leading-relaxed">
               Platform marketplace modern untuk jual beli barang bekas berkualitas. Temukan penawaran terbaik dan terpercaya hanya di Barkasku.
             </p>
@@ -41,6 +43,7 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/*
           <div className="flex flex-col items-center md:items-start">
             <h4 className="text-lg font-bold mb-4 text-yellow-500 tracking-wide">Ikuti Kami</h4>
             <div className="flex gap-4">
@@ -54,6 +57,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
+          */}
 
         </div>
 
