@@ -30,6 +30,7 @@ export default function Footer() {
               className="h-16 mb-4 object-contain" 
             />
             */}
+            <h2 className="text-2xl font-bold mb-4 text-yellow-500 tracking-wide text-center md:text-left">Barkasku</h2>
             <p className="text-gray-300 text-sm text-center md:text-left leading-relaxed">
               Platform marketplace modern untuk jual beli barang bekas berkualitas. Temukan penawaran terbaik dan terpercaya hanya di Barkasku.
             </p>
